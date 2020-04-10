@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HIF3eLernzielDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Faecher">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Beschreibung" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Lernziele">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Beschreibung" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fach" Type="int" />
+        </EntityType>
+        <Association Name="FK_Lernziele_Faecher">
+          <End Role="Faecher" Type="Self.Faecher" Multiplicity="0..1" />
+          <End Role="Lernziele" Type="Self.Lernziele" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faecher">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Lernziele">
+              <PropertyRef Name="Fach" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HIF3eLernzielDBModelStoreContainer">
+          <EntitySet Name="Faecher" EntityType="Self.Faecher" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lernziele" EntityType="Self.Lernziele" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Lernziele_Faecher" Association="Self.FK_Lernziele_Faecher">
+            <End Role="Faecher" EntitySet="Faecher" />
+            <End Role="Lernziele" EntitySet="Lernziele" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HIF3eLernzielDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Faecher">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Beschreibung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Lernzieles" Relationship="Self.FK_Lernziele_Faecher" FromRole="Faecher" ToRole="Lernziele" />
+        </EntityType>
+        <EntityType Name="Lernziele">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Beschreibung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fach" Type="Int32" />
+          <NavigationProperty Name="Faecher" Relationship="Self.FK_Lernziele_Faecher" FromRole="Lernziele" ToRole="Faecher" />
+        </EntityType>
+        <Association Name="FK_Lernziele_Faecher">
+          <End Role="Faecher" Type="Self.Faecher" Multiplicity="0..1" />
+          <End Role="Lernziele" Type="Self.Lernziele" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faecher">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Lernziele">
+              <PropertyRef Name="Fach" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HIF3eLernzielDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Faechers" EntityType="Self.Faecher" />
+          <EntitySet Name="Lernzieles" EntityType="Self.Lernziele" />
+          <AssociationSet Name="FK_Lernziele_Faecher" Association="Self.FK_Lernziele_Faecher">
+            <End Role="Faecher" EntitySet="Faechers" />
+            <End Role="Lernziele" EntitySet="Lernzieles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HIF3eLernzielDBModelStoreContainer" CdmEntityContainer="HIF3eLernzielDBEntities">
+          <EntitySetMapping Name="Faechers">
+            <EntityTypeMapping TypeName="HIF3eLernzielDBModel.Faecher">
+              <MappingFragment StoreEntitySet="Faecher">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Beschreibung" ColumnName="Beschreibung" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lernzieles">
+            <EntityTypeMapping TypeName="HIF3eLernzielDBModel.Lernziele">
+              <MappingFragment StoreEntitySet="Lernziele">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Beschreibung" ColumnName="Beschreibung" />
+                <ScalarProperty Name="Fach" ColumnName="Fach" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

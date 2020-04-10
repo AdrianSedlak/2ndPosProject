@@ -13,18 +13,14 @@
         FontFamily="{materialDesign:MaterialDesignFont}"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1024" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="400" Width="600" WindowStartupLocation="CenterScreen">
 
-    <Grid VerticalAlignment="Top" Margin="16">
+    <Grid VerticalAlignment="Top" Margin="16" x:Name="content">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <materialDesign:PackIcon VerticalAlignment="Center" Kind="Account"/>
-        <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="8 0 0 0">Name:</TextBlock>
-        <TextBox Grid.Column="2" VerticalAlignment="Center" Margin="8 0 0 0"></TextBox>
-        <Button Grid.Column="3" VerticalAlignment="Center" Margin="8 0 0 0">SUMBIT</Button>
     </Grid>
 </Window>
