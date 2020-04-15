@@ -17,12 +17,15 @@ namespace Sedlak_PosProjekt
     /// <summary>
     /// Interaktionslogik für Login.xaml
     /// </summary>
-    public partial class Login : Window, IClosable
+    public partial class Login : Window
     {
         public Login()
         {
             InitializeComponent();
-            DataContext = new VMLogin();
+            VMLogin vm = new VMLogin();
+            this.DataContext = vm;
+            if (vm.CloseAction == null)
+                vm.CloseAction = new Action(this.Close);
         }
     }
 }

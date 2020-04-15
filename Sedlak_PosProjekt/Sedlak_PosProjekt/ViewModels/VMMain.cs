@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Sedlak_PosProjekt
 {
-    interface IClosable
+    class VMMain
     {
-        void Close();
+        
     }
 }

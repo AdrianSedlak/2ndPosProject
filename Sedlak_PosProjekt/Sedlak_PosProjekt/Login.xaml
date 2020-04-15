@@ -1,5 +1,6 @@
 ﻿<Window x:Class="Sedlak_PosProjekt.Login"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:vm="using:Sedlak_PosProjekt.ViewModels"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
@@ -19,6 +20,10 @@
              MaxHeight="420"
              MaxWidth="600"
              d:DesignHeight="420" d:DesignWidth="600">
+
+    <Window.DataContext>
+        <local:VMLogin/>
+    </Window.DataContext>
     <Grid>
         <StackPanel Margin="20,0,290,10">
             <Label Content="Login" FontFamily="Segoe UI Black" FontSize="24" Margin="0 20 0 0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
@@ -30,12 +35,12 @@
                 <materialDesign:PackIcon Kind="Key" VerticalAlignment="Center" Foreground="#707070"/>
                 <PasswordBox materialDesign:HintAssist.Hint="Password" Width="250" Margin="5"/>
             </StackPanel>
-            <Button Margin="225 0 0 30" HorizontalAlignment="Left" Content="Login" FontSize="10" Padding="10, 0, 10, 0" MaxHeight="20"/>
+            <Button Margin="225 0 0 30" HorizontalAlignment="Left" Content="Login" FontSize="10" Padding="10, 0, 10, 0" MaxHeight="20"
+                    IsDefault="True" Command="{Binding Path=SimpleCommand}"/>
             <StackPanel Orientation="Horizontal">
                 <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="#707070">
                     <Run Text="Don't have an account yet?"/></TextBlock>
-                <Button Margin="10 0 0 0" FontSize="10" Padding="10, 0, 10, 0" MaxHeight="20"
-                        Command="{Binding CloseWindowComman}">Create one here</Button>
+                <Button IsDefault="True" Command="{Binding RegisterButtonCommand}"  Margin="10 0 0 0" FontSize="10" Padding="10, 0, 10, 0" MaxHeight="20">Register</Button>
             </StackPanel>
         </StackPanel>
         <Rectangle Margin="330,0,0,0">

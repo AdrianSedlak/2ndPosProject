@@ -13,8 +13,11 @@
         FontFamily="{materialDesign:MaterialDesignFont}"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="600" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="600" Width="1000" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
 
+    <Window.DataContext>
+        <local:VMMain/>
+    </Window.DataContext>
     <Grid VerticalAlignment="Top" Margin="16" x:Name="content">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
