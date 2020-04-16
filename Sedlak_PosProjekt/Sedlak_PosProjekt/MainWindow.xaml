@@ -21,9 +21,21 @@
     <Grid VerticalAlignment="Top" Margin="16" x:Name="content">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Column="0">
+            <Button Command="{Binding Path=AddCommand}">+</Button>
+            <TextBox TextAlignment="Center" MinWidth="250" Margin="10 0 10 0"></TextBox>
+            <Button Command="{Binding Path=SearchCommand}">Search</Button>
+        </StackPanel>
+        <Button Grid.Column="1" HorizontalAlignment="Right" Command="{Binding Path=LogOutCommand}">Log out</Button>
+        <ListBox Grid.Column="0" Grid.Row="1">
+            
+        </ListBox>
+        
     </Grid>
 </Window>

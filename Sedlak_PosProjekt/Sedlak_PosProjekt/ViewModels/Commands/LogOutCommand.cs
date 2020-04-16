@@ -7,14 +7,15 @@ using System.Windows.Input;
 
 namespace Sedlak_PosProjekt.ViewModels.Commands
 {
-    public class SimpleCommand : ICommand
+    public class LogOutCommand : ICommand
     {
-        public VMLogin Vm { get; set; }
+        public VMMain Vm { get; set; }
 
-        public SimpleCommand (VMLogin vm)
+        public LogOutCommand(VMMain vm)
         {
             this.Vm = vm;
         }
+
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
@@ -24,7 +25,7 @@ namespace Sedlak_PosProjekt.ViewModels.Commands
 
         public void Execute(object parameter)
         {
-            this.Vm.SimpleMethod();
+            this.Vm.LogOutMethod();
         }
     }
 }

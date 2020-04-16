@@ -4,9 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="99449d473cd1482a93c6669b16cad0d6" Name="Diagram1">
-        <EntityTypeShape EntityType="HIF3eLernzielDBModel.Faecher" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+      <Diagram DiagramId="af6481a16e924090affe5655558e273c" Name="Diagram1">
+        <EntityTypeShape EntityType="HIF3eLernzielDBModel.Benutzer" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIF3eLernzielDBModel.Faecher" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="HIF3eLernzielDBModel.Lernziele" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="HIF3eLernzielDBModel.FK_Lernziele_Benutzer" ManuallyRouted="false" />
         <AssociationConnector Association="HIF3eLernzielDBModel.FK_Lernziele_Faecher" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

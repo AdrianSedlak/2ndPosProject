@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="HIF3eLernzielDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Benutzer">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Pwd" Type="nchar" MaxLength="64" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Faecher">
           <Key>
             <PropertyRef Name="ID" />
@@ -19,7 +27,20 @@
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Beschreibung" Type="nvarchar" MaxLength="50" />
           <Property Name="Fach" Type="int" />
+          <Property Name="User" Type="int" />
         </EntityType>
+        <Association Name="FK_Lernziele_Benutzer">
+          <End Role="Benutzer" Type="Self.Benutzer" Multiplicity="0..1" />
+          <End Role="Lernziele" Type="Self.Lernziele" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Benutzer">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Lernziele">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Lernziele_Faecher">
           <End Role="Faecher" Type="Self.Faecher" Multiplicity="0..1" />
           <End Role="Lernziele" Type="Self.Lernziele" Multiplicity="*" />
@@ -33,8 +54,13 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="HIF3eLernzielDBModelStoreContainer">
+          <EntitySet Name="Benutzer" EntityType="Self.Benutzer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Faecher" EntityType="Self.Faecher" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lernziele" EntityType="Self.Lernziele" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Lernziele_Benutzer" Association="Self.FK_Lernziele_Benutzer">
+            <End Role="Benutzer" EntitySet="Benutzer" />
+            <End Role="Lernziele" EntitySet="Lernziele" />
+          </AssociationSet>
           <AssociationSet Name="FK_Lernziele_Faecher" Association="Self.FK_Lernziele_Faecher">
             <End Role="Faecher" EntitySet="Faecher" />
             <End Role="Lernziele" EntitySet="Lernziele" />
@@ -45,6 +71,15 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HIF3eLernzielDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Benutzer">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Pwd" Type="String" MaxLength="64" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Lernzieles" Relationship="Self.FK_Lernziele_Benutzer" FromRole="Benutzer" ToRole="Lernziele" />
+        </EntityType>
         <EntityType Name="Faecher">
           <Key>
             <PropertyRef Name="ID" />
@@ -60,8 +95,22 @@
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Beschreibung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Fach" Type="Int32" />
+          <Property Name="User" Type="Int32" />
+          <NavigationProperty Name="Benutzer" Relationship="Self.FK_Lernziele_Benutzer" FromRole="Lernziele" ToRole="Benutzer" />
           <NavigationProperty Name="Faecher" Relationship="Self.FK_Lernziele_Faecher" FromRole="Lernziele" ToRole="Faecher" />
         </EntityType>
+        <Association Name="FK_Lernziele_Benutzer">
+          <End Role="Benutzer" Type="Self.Benutzer" Multiplicity="0..1" />
+          <End Role="Lernziele" Type="Self.Lernziele" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Benutzer">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Lernziele">
+              <PropertyRef Name="User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Lernziele_Faecher">
           <End Role="Faecher" Type="Self.Faecher" Multiplicity="0..1" />
           <End Role="Lernziele" Type="Self.Lernziele" Multiplicity="*" />
@@ -75,8 +124,13 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="HIF3eLernzielDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Benutzers" EntityType="Self.Benutzer" />
           <EntitySet Name="Faechers" EntityType="Self.Faecher" />
           <EntitySet Name="Lernzieles" EntityType="Self.Lernziele" />
+          <AssociationSet Name="FK_Lernziele_Benutzer" Association="Self.FK_Lernziele_Benutzer">
+            <End Role="Benutzer" EntitySet="Benutzers" />
+            <End Role="Lernziele" EntitySet="Lernzieles" />
+          </AssociationSet>
           <AssociationSet Name="FK_Lernziele_Faecher" Association="Self.FK_Lernziele_Faecher">
             <End Role="Faecher" EntitySet="Faechers" />
             <End Role="Lernziele" EntitySet="Lernzieles" />
@@ -88,6 +142,15 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="HIF3eLernzielDBModelStoreContainer" CdmEntityContainer="HIF3eLernzielDBEntities">
+          <EntitySetMapping Name="Benutzers">
+            <EntityTypeMapping TypeName="HIF3eLernzielDBModel.Benutzer">
+              <MappingFragment StoreEntitySet="Benutzer">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Pwd" ColumnName="Pwd" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Faechers">
             <EntityTypeMapping TypeName="HIF3eLernzielDBModel.Faecher">
               <MappingFragment StoreEntitySet="Faecher">
@@ -102,6 +165,7 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Beschreibung" ColumnName="Beschreibung" />
                 <ScalarProperty Name="Fach" ColumnName="Fach" />
+                <ScalarProperty Name="User" ColumnName="User" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

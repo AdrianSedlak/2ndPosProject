@@ -25,6 +25,7 @@ namespace Sedlak_PosProjekt
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Benutzer> Benutzers { get; set; }
         public virtual DbSet<Faecher> Faechers { get; set; }
         public virtual DbSet<Lernziele> Lernzieles { get; set; }
     }
