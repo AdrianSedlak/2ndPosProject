@@ -12,6 +12,8 @@
           <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Pwd" Type="nchar" MaxLength="64" Nullable="false" />
           <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LoggedIn" Type="bit" Nullable="false" />
+          <Property Name="Schule" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Faecher">
           <Key>
@@ -24,13 +26,35 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="Beschreibung" Type="nvarchar" MaxLength="50" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Beschreibung" Type="nvarchar" MaxLength="100" />
           <Property Name="Fach" Type="int" />
-          <Property Name="User" Type="int" />
+          <Property Name="User" Type="int" Nullable="false" />
+          <Property Name="Titel" Type="nvarchar" MaxLength="50" />
+          <Property Name="Datum" Type="date" />
         </EntityType>
+        <EntityType Name="Schule">
+          <Key>
+            <PropertyRef Name="Kuerzel" />
+          </Key>
+          <Property Name="Kuerzel" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Vollname" Type="nvarchar" MaxLength="150" />
+          <Property Name="Adresse" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK_Benutzer_ToSchule">
+          <End Role="Schule" Type="Self.Schule" Multiplicity="0..1" />
+          <End Role="Benutzer" Type="Self.Benutzer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schule">
+              <PropertyRef Name="Kuerzel" />
+            </Principal>
+            <Dependent Role="Benutzer">
+              <PropertyRef Name="Schule" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Lernziele_Benutzer">
-          <End Role="Benutzer" Type="Self.Benutzer" Multiplicity="0..1" />
+          <End Role="Benutzer" Type="Self.Benutzer" Multiplicity="1" />
           <End Role="Lernziele" Type="Self.Lernziele" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Benutzer">
@@ -57,6 +81,11 @@
           <EntitySet Name="Benutzer" EntityType="Self.Benutzer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Faecher" EntityType="Self.Faecher" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lernziele" EntityType="Self.Lernziele" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Schule" EntityType="Self.Schule" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Benutzer_ToSchule" Association="Self.FK_Benutzer_ToSchule">
+            <End Role="Schule" EntitySet="Schule" />
+            <End Role="Benutzer" EntitySet="Benutzer" />
+          </AssociationSet>
           <AssociationSet Name="FK_Lernziele_Benutzer" Association="Self.FK_Lernziele_Benutzer">
             <End Role="Benutzer" EntitySet="Benutzer" />
             <End Role="Lernziele" EntitySet="Lernziele" />
@@ -78,6 +107,9 @@
           <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Pwd" Type="String" MaxLength="64" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoggedIn" Type="Boolean" Nullable="false" />
+          <Property Name="Schule" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Schule1" Relationship="Self.FK_Benutzer_ToSchule" FromRole="Benutzer" ToRole="Schule" />
           <NavigationProperty Name="Lernzieles" Relationship="Self.FK_Lernziele_Benutzer" FromRole="Benutzer" ToRole="Lernziele" />
         </EntityType>
         <EntityType Name="Faecher">
@@ -92,15 +124,38 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Beschreibung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Beschreibung" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Fach" Type="Int32" />
-          <Property Name="User" Type="Int32" />
+          <Property Name="User" Type="Int32" Nullable="false" />
+          <Property Name="Titel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Datum" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Benutzer" Relationship="Self.FK_Lernziele_Benutzer" FromRole="Lernziele" ToRole="Benutzer" />
           <NavigationProperty Name="Faecher" Relationship="Self.FK_Lernziele_Faecher" FromRole="Lernziele" ToRole="Faecher" />
         </EntityType>
+        <EntityType Name="Schule">
+          <Key>
+            <PropertyRef Name="Kuerzel" />
+          </Key>
+          <Property Name="Kuerzel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Vollname" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Adresse" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Benutzers" Relationship="Self.FK_Benutzer_ToSchule" FromRole="Schule" ToRole="Benutzer" />
+        </EntityType>
+        <Association Name="FK_Benutzer_ToSchule">
+          <End Role="Schule" Type="Self.Schule" Multiplicity="0..1" />
+          <End Role="Benutzer" Type="Self.Benutzer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schule">
+              <PropertyRef Name="Kuerzel" />
+            </Principal>
+            <Dependent Role="Benutzer">
+              <PropertyRef Name="Schule" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Lernziele_Benutzer">
-          <End Role="Benutzer" Type="Self.Benutzer" Multiplicity="0..1" />
+          <End Role="Benutzer" Type="Self.Benutzer" Multiplicity="1" />
           <End Role="Lernziele" Type="Self.Lernziele" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Benutzer">
@@ -127,6 +182,11 @@
           <EntitySet Name="Benutzers" EntityType="Self.Benutzer" />
           <EntitySet Name="Faechers" EntityType="Self.Faecher" />
           <EntitySet Name="Lernzieles" EntityType="Self.Lernziele" />
+          <EntitySet Name="Schules" EntityType="Self.Schule" />
+          <AssociationSet Name="FK_Benutzer_ToSchule" Association="Self.FK_Benutzer_ToSchule">
+            <End Role="Schule" EntitySet="Schules" />
+            <End Role="Benutzer" EntitySet="Benutzers" />
+          </AssociationSet>
           <AssociationSet Name="FK_Lernziele_Benutzer" Association="Self.FK_Lernziele_Benutzer">
             <End Role="Benutzer" EntitySet="Benutzers" />
             <End Role="Lernziele" EntitySet="Lernzieles" />
@@ -148,6 +208,8 @@
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="Pwd" ColumnName="Pwd" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="LoggedIn" ColumnName="LoggedIn" />
+                <ScalarProperty Name="Schule" ColumnName="Schule" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -166,6 +228,17 @@
                 <ScalarProperty Name="Beschreibung" ColumnName="Beschreibung" />
                 <ScalarProperty Name="Fach" ColumnName="Fach" />
                 <ScalarProperty Name="User" ColumnName="User" />
+                <ScalarProperty Name="Titel" ColumnName="Titel" />
+                <ScalarProperty Name="Datum" ColumnName="Datum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schules">
+            <EntityTypeMapping TypeName="HIF3eLernzielDBModel.Schule">
+              <MappingFragment StoreEntitySet="Schule">
+                <ScalarProperty Name="Kuerzel" ColumnName="Kuerzel" />
+                <ScalarProperty Name="Vollname" ColumnName="Vollname" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

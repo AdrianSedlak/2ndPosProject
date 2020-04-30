@@ -17,7 +17,9 @@ namespace Sedlak_PosProjekt
         public int ID { get; set; }
         public string Beschreibung { get; set; }
         public Nullable<int> Fach { get; set; }
-        public Nullable<int> User { get; set; }
+        public int User { get; set; }
+        public string Titel { get; set; }
+        public Nullable<System.DateTime> Datum { get; set; }
     
         public virtual Benutzer Benutzer { get; set; }
         public virtual Faecher Faecher { get; set; }

@@ -12,22 +12,19 @@ namespace Sedlak_PosProjekt
     using System;
     using System.Collections.Generic;
     
-    public partial class Benutzer
+    public partial class Schule
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Benutzer()
+        public Schule()
         {
-            this.Lernzieles = new HashSet<Lernziele>();
+            this.Benutzers = new HashSet<Benutzer>();
         }
     
-        public int UserID { get; set; }
-        public string Pwd { get; set; }
-        public string Username { get; set; }
-        public bool LoggedIn { get; set; }
-        public string Schule { get; set; }
+        public string Kuerzel { get; set; }
+        public string Vollname { get; set; }
+        public string Adresse { get; set; }
     
-        public virtual Schule Schule1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Lernziele> Lernzieles { get; set; }
+        public virtual ICollection<Benutzer> Benutzers { get; set; }
     }
 }

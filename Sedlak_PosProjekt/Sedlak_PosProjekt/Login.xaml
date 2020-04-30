@@ -20,7 +20,6 @@
              MaxHeight="420"
              MaxWidth="600"
              d:DesignHeight="420" d:DesignWidth="600">
-
     <Window.DataContext>
         <local:VMLogin/>
     </Window.DataContext>
@@ -31,13 +30,17 @@
                 <materialDesign:PackIcon Kind="Account" VerticalAlignment="Center" Foreground="#707070"/>
                 <TextBox Text="{Binding Path=UserName}" x:Name="loginBox" materialDesign:HintAssist.Hint="Username" Width="250" Margin="5"/>
             </StackPanel>
-            <StackPanel Margin ="0 10 0 10" Orientation="Horizontal">
+            <StackPanel Margin ="0 10 0 0" Orientation="Horizontal">
                 <materialDesign:PackIcon Kind="Key" VerticalAlignment="Center" Foreground="#707070"/>
                 <TextBox Text="{Binding Path=PassWord}"  x:Name="pwdBox" materialDesign:HintAssist.Hint="Password" Width="250" Margin="5"/>
             </StackPanel>
+            <StackPanel Margin="0 10 0 10" Orientation="Horizontal">
+                <materialDesign:PackIcon Kind="Book" VerticalAlignment="Center" Foreground="#707070"/>
+                <TextBox Text="{Binding Path=Schule}" materialDesign:HintAssist.Hint="Schule" Width="250" Margin="5"></TextBox>
+            </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock VerticalAlignment="Top" MinWidth="200" MaxHeight="20" Text="{Binding Path=Response, Mode=TwoWay}">Hello</TextBlock>
-                <Button Margin="30 0 0 30" HorizontalAlignment="Right" Content="Login" FontSize="10" Padding="10, 0, 10, 0" MaxHeight="20"
+                <TextBlock VerticalAlignment="Top" MinWidth="200" MaxHeight="20" Text="{Binding Path=Response, Mode=TwoWay}"></TextBlock>
+                <Button Margin="25 0 0 10" HorizontalAlignment="Right" Content="Login" FontSize="10" Padding="10, 0, 10, 0" MaxHeight="20"
                     Command="{Binding Path=LoginCommand}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">

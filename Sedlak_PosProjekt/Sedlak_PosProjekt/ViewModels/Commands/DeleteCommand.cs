@@ -7,12 +7,12 @@ using System.Windows.Input;
 
 namespace Sedlak_PosProjekt.ViewModels.Commands
 {
-    public class SearchCommand : ICommand
+    public class DeleteCommand : ICommand
     {
-        public VMMain Vm { get; set; }
         public event EventHandler CanExecuteChanged;
+        public VMMain Vm { get; set; }
 
-        public SearchCommand(VMMain vm)
+        public DeleteCommand(VMMain vm)
         {
             this.Vm = vm;
         }
@@ -24,7 +24,7 @@ namespace Sedlak_PosProjekt.ViewModels.Commands
 
         public void Execute(object parameter)
         {
-            this.Vm.SearchMethod();
+            Vm.DeleteMethod();
         }
     }
 }

@@ -4,10 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="af6481a16e924090affe5655558e273c" Name="Diagram1">
-        <EntityTypeShape EntityType="HIF3eLernzielDBModel.Benutzer" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="HIF3eLernzielDBModel.Faecher" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="HIF3eLernzielDBModel.Lernziele" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+      <Diagram DiagramId="0793908d6a9948f99b83363fd50ec81d" Name="Diagram1">
+        <EntityTypeShape EntityType="HIF3eLernzielDBModel.Benutzer" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIF3eLernzielDBModel.Faecher" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIF3eLernzielDBModel.Lernziele" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="HIF3eLernzielDBModel.Schule" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <AssociationConnector Association="HIF3eLernzielDBModel.FK_Benutzer_ToSchule" ManuallyRouted="false" />
         <AssociationConnector Association="HIF3eLernzielDBModel.FK_Lernziele_Benutzer" ManuallyRouted="false" />
         <AssociationConnector Association="HIF3eLernzielDBModel.FK_Lernziele_Faecher" ManuallyRouted="false" />
       </Diagram>

@@ -28,5 +28,6 @@ namespace Sedlak_PosProjekt
         public virtual DbSet<Benutzer> Benutzers { get; set; }
         public virtual DbSet<Faecher> Faechers { get; set; }
         public virtual DbSet<Lernziele> Lernzieles { get; set; }
+        public virtual DbSet<Schule> Schules { get; set; }
     }
 }

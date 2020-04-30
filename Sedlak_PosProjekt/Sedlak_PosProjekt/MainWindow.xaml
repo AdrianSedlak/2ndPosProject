@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:Sedlak_PosProjekt"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -13,7 +14,7 @@
         FontFamily="{materialDesign:MaterialDesignFont}"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1000" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+        Title="MainWindow" Height="600" Width="1000" WindowStartupLocation="CenterScreen">
 
     <Window.DataContext>
         <local:VMMain/>
@@ -27,15 +28,30 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Column="0">
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0">
             <Button Command="{Binding Path=AddCommand}">+</Button>
-            <TextBox TextAlignment="Center" MinWidth="250" Margin="10 0 10 0"></TextBox>
-            <Button Command="{Binding Path=SearchCommand}">Search</Button>
+            <TextBox materialDesign:HintAssist.Hint="Titel" Text="{Binding Path=VMTitel, Mode=TwoWay}" TextAlignment="Left" MinWidth="150" Margin="10 0 10 0"></TextBox>
+            <TextBox materialDesign:HintAssist.Hint="Beschreibung" Text="{Binding Path=VMBeschreibung, Mode=TwoWay}" TextAlignment="Left" MinWidth="150" Margin="10 0 10 0"></TextBox>
+            <DatePicker SelectedDate="{Binding Path=VmLernzielDatum, Mode=TwoWay}" Margin="10 5 10 0" Height="25"></DatePicker>
+            <Button Command="{Binding Path=DeleteCommand}" Margin="10 0 0 0">Delete</Button>
         </StackPanel>
         <Button Grid.Column="1" HorizontalAlignment="Right" Command="{Binding Path=LogOutCommand}">Log out</Button>
-        <ListBox Grid.Column="0" Grid.Row="1">
-            
-        </ListBox>
-        
+        <ListView Grid.Column="0" Grid.Row="1" 
+                 ItemsSource="{Binding Path=AlleLernziele}" MinWidth="456"
+                 SelectedItem="{Binding Path=GewaehltesLernziel, Mode=OneWayToSource, BindsDirectlyToSource=True}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Titel" DisplayMemberBinding="{Binding Titel}" />
+                    <GridViewColumn Header="Beschreibung" DisplayMemberBinding="{Binding Beschreibung}" />
+                    <GridViewColumn Header="Datum">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Datum}"></TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>

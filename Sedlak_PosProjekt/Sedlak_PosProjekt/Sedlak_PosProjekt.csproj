@@ -112,11 +112,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Schule.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\Commands\AddCommand.cs" />
+    <Compile Include="ViewModels\Commands\DeleteCommand.cs" />
     <Compile Include="ViewModels\Commands\LoginCommand.cs" />
     <Compile Include="ViewModels\Commands\LogOutCommand.cs" />
     <Compile Include="ViewModels\Commands\RegisterCommand.cs" />
-    <Compile Include="ViewModels\Commands\SearchCommand.cs" />
     <Compile Include="ViewModels\VMLogin.cs" />
     <Compile Include="ViewModels\VMMain.cs" />
     <Page Include="Login.xaml">

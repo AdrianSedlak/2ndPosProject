@@ -23,12 +23,10 @@ namespace Sedlak_PosProjekt
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        public void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            Login login = new Login();
-            login.ShowDialog();
+            VMMain vm = new VMMain();
+            this.DataContext = vm;
+            if (vm.CloseAction == null)
+                vm.CloseAction = new Action(this.Close);
         }
     }
 }
